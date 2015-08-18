@@ -12,25 +12,54 @@
 # Body
 
 def most_frequent(s):
+    """ This function takes in a sring, and converts all characters to lowercase
+    where possible. A dictionary histogram{} is created, empty to start, with indeces 
+    incremented when a letter scanned in string s is found in histogram{}. 
+
+    A dictionary_by_frequency{} is created as the inverse of histogram{}, where values 
+    are now keys. So, for a key, we have all letters found to appear at that frequency.
+
+    We then sort the dictionary_by_frequency by keys in descending order, and pass into
+    a list, sorted_dictionary.
+
+    We then step through the length of this sorted_dictionary list, and for every step 
+    we check to see if sorted_dictionary[i] is a key in dictionary_by_frequency{}.
+    It will be. But in order to print the characters one after the other, we need to step
+    through the values paired with that key.
+
+    There MUST be a way to do this with list comprehension... ask Daniel. 
+
+    """
     s = str.lower(s)
-    s_tuples = tuple(s)
     histogram = {}
-    for letter in s_tuples:
+    for letter in s:
          histogram[letter] = histogram.get(letter, 0) + 1
     dictionary_by_frequency = inverse_dict(histogram)
     sorted_dictionary = sorted(dictionary_by_frequency.keys(), reverse = True)
-    for value in sorted_dictionary:
-        print dictionary_by_frequency[value]
-        if value == dictionary_by_frequency.keys():
-            dictionary_by_frequency[value].replace("[","").replace("]", "").replace["'",""]
-            # I have no idea how to split this list into a darn string so that each line is a string.
-            # Been spending way too much time on this, oops.
+    for i in range(len(sorted_dictionary)):
+        if sorted_dictionary[i] in dictionary_by_frequency:
+            for character in dictionary_by_frequency[sorted_dictionary[i]]:
+                print character
+
 
 def inverse_dict(d):
+    """ An inverse dictionary is created in order to rank the above histogram 
+    by frequency, because dictionaries cannot be sorted by values. What was 
+    a value is now a key.
+
+    Searches for a value in the passed in dictionary as a key in inverse{}. If 
+    the value is not found as a key in inverse{}, then that value now becomes
+    a key in inverse{} and is assigned the value paired with d[key].
+
+    Return the inverse{} for completing above function.
+
+    """
     inverse = {}
     for key, value in d.items():
         inverse[value] = inverse.get(value, []) + [key]
     return inverse
+
+
 
 ###############################################################################
 def main():   # DO NOT CHANGE BELOW
