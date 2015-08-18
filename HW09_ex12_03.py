@@ -12,7 +12,25 @@
 # Body
 
 def most_frequent(s):
-    print s
+    s = str.lower(s)
+    s_tuples = tuple(s)
+    histogram = {}
+    for letter in s_tuples:
+         histogram[letter] = histogram.get(letter, 0) + 1
+    dictionary_by_frequency = inverse_dict(histogram)
+    sorted_dictionary = sorted(dictionary_by_frequency.keys(), reverse = True)
+    for value in sorted_dictionary:
+        print dictionary_by_frequency[value]
+        if value == dictionary_by_frequency.keys():
+            dictionary_by_frequency[value].replace("[","").replace("]", "").replace["'",""]
+            # I have no idea how to split this list into a darn string so that each line is a string.
+            # Been spending way too much time on this, oops.
+
+def inverse_dict(d):
+    inverse = {}
+    for key, value in d.items():
+        inverse[value] = inverse.get(value, []) + [key]
+    return inverse
 
 ###############################################################################
 def main():   # DO NOT CHANGE BELOW
